@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:patoburguer/models/item_cardapio.dart';
 
 class ItemDetalhado extends StatelessWidget {
+  ItemCardapio item;
+
+  ItemDetalhado(this.item);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +48,7 @@ class ItemDetalhado extends StatelessWidget {
                     height: 80.96,
                   ),
                   Text(
-                    'X-Pato Bacon',
+                    item.nome,
                     style: TextStyle(
                       fontSize: 24.0,
                       fontWeight: FontWeight.w700,
@@ -62,7 +67,7 @@ class ItemDetalhado extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipisci elit. Morbi ultricies ipsum justo, at molestie risus mollis a. ',
+                    item.detalhes,
                     textAlign: TextAlign.justify,
                     style: TextStyle(
                       fontSize: 14.0,
@@ -82,7 +87,7 @@ class ItemDetalhado extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipisci elit. Morbi ultricies ipsum justo, at molestie risus mollis a. ',
+                    item.ingredientes,
                     textAlign: TextAlign.justify,
                     style: TextStyle(
                       fontSize: 14.0,
@@ -103,7 +108,7 @@ class ItemDetalhado extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '0,00',
+                          item.preco.toStringAsFixed(2).replaceAll('.', ','),
                           style: TextStyle(
                             fontSize: 30.0,
                             fontWeight: FontWeight.w700,
@@ -122,7 +127,7 @@ class ItemDetalhado extends StatelessWidget {
             left: 0,
             right: 0,
             bottom: (MediaQuery.of(context).size.height * 0.5960 - 105.96),
-            child: Image.asset('assets/images/pato-bacon_solo.png'),
+            child: Image.asset(item.imagemSrc),
           ),
         ],
       ),
