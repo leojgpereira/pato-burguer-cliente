@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:patoburguer/screens/Contato.dart';
 
 void main() {
   runApp(PatoBurguerApp());
@@ -7,6 +8,9 @@ void main() {
 class PatoBurguerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp();
+    return MaterialApp(
+      theme: ThemeData(primarySwatch: Colors.orange),
+      home: Contato(),
+    );
   }
 }
