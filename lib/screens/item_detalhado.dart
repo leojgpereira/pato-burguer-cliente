@@ -11,6 +11,7 @@ class ItemDetalhado extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         title: Center(
           child: Text(
@@ -25,17 +26,17 @@ class ItemDetalhado extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          Container(
-            color: Theme.of(context).primaryColor,
-          ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            left: 0,
+          Align(
+            alignment: Alignment.bottomCenter,
             child: Container(
               width: double.infinity,
-              height: (MediaQuery.of(context).size.height * 0.5960),
-              padding: const EdgeInsets.all(25.0),
+              height: (MediaQuery.of(context).size.height * 0.6),
+              padding: EdgeInsets.only(
+                top: 105.96,
+                left: 25.0,
+                right: 25.0,
+                bottom: 25.0,
+              ),
               decoration: BoxDecoration(
                 color: Color(0xFFF3F3F3),
                 borderRadius: BorderRadius.only(
@@ -66,84 +67,83 @@ class DetalhesItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          height: 80.96,
-        ),
-        Text(
-          item.nome,
-          style: TextStyle(
-            fontSize: 24.0,
-            fontWeight: FontWeight.w700,
-            color: corTexto,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 8.0, bottom: 4.0),
-          child: Text(
-            'Detalhes',
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            item.nome,
             style: TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.w900,
+              fontSize: 24.0,
+              fontWeight: FontWeight.w700,
               color: corTexto,
             ),
           ),
-        ),
-        Text(
-          item.detalhes,
-          textAlign: TextAlign.justify,
-          style: TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.w500,
-            color: corTexto.withOpacity(0.6),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 8.0, bottom: 4.0),
-          child: Text(
-            'Ingredientes',
-            style: TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.w900,
-              color: corTexto,
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, bottom: 4.0),
+            child: Text(
+              'Detalhes',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.w900,
+                color: corTexto,
+              ),
             ),
           ),
-        ),
-        Text(
-          item.ingredientes,
-          textAlign: TextAlign.justify,
-          style: TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.w500,
-            color: corTexto.withOpacity(0.6),
+          Text(
+            item.detalhes,
+            textAlign: TextAlign.justify,
+            style: TextStyle(
+              fontSize: 14.0,
+              fontWeight: FontWeight.w500,
+              color: corTexto.withOpacity(0.6),
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-          child: Row(
-            children: [
-              Text(
-                'R\$ ',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFFFF9B0D),
-                ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, bottom: 4.0),
+            child: Text(
+              'Ingredientes',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.w900,
+                color: corTexto,
               ),
-              Text(
-                item.preco.toStringAsFixed(2).replaceAll('.', ','),
-                style: TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.w700,
-                  color: corTexto,
-                ),
-              ),
-            ],
+            ),
           ),
-        )
-      ],
+          Text(
+            item.ingredientes,
+            textAlign: TextAlign.justify,
+            style: TextStyle(
+              fontSize: 14.0,
+              fontWeight: FontWeight.w500,
+              color: corTexto.withOpacity(0.6),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+            child: Row(
+              children: [
+                Text(
+                  'R\$ ',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFFFF9B0D),
+                  ),
+                ),
+                Text(
+                  item.preco.toStringAsFixed(2).replaceAll('.', ','),
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.w700,
+                    color: corTexto,
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
