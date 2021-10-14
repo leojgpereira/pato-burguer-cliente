@@ -1,12 +1,12 @@
-class ItemCardapio {
-  final String imagemSrc;
+class Produto {
+  final String imagem;
   final String nome;
   final String detalhes;
   final String ingredientes;
   final double preco;
 
-  ItemCardapio(
-    this.imagemSrc,
+  Produto(
+    this.imagem,
     this.nome,
     this.detalhes,
     this.ingredientes,

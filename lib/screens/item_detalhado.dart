@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:patoburguer/models/item_cardapio.dart';
+import 'package:patoburguer/models/produto.dart';
 
 Color corTexto = const Color(0xFF434343);
 
@@ -64,7 +64,7 @@ class ItemDetalhado extends StatelessWidget {
             Map<String, dynamic> data =
                 snapshot.data!.data() as Map<String, dynamic>;
 
-            final ItemCardapio produto = ItemCardapio(
+            final Produto produto = Produto(
               data['imagem'],
               data['nome'],
               data['detalhes'],
@@ -134,9 +134,9 @@ class ItemDetalhado extends StatelessWidget {
 }
 
 class DetalhesItem extends StatelessWidget {
-  final ItemCardapio item;
+  final Produto produto;
 
-  DetalhesItem(this.item);
+  DetalhesItem(this.produto);
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +145,7 @@ class DetalhesItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            item.nome,
+            produto.nome,
             style: TextStyle(
               fontSize: 24.0,
               fontWeight: FontWeight.w700,
@@ -164,7 +164,7 @@ class DetalhesItem extends StatelessWidget {
             ),
           ),
           Text(
-            item.detalhes,
+            produto.detalhes,
             textAlign: TextAlign.justify,
             style: TextStyle(
               fontSize: 14.0,
@@ -184,7 +184,7 @@ class DetalhesItem extends StatelessWidget {
             ),
           ),
           Text(
-            item.ingredientes,
+            produto.ingredientes,
             textAlign: TextAlign.justify,
             style: TextStyle(
               fontSize: 14.0,
@@ -205,7 +205,7 @@ class DetalhesItem extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  item.preco.toStringAsFixed(2).replaceAll('.', ','),
+                  produto.preco.toStringAsFixed(2).replaceAll('.', ','),
                   style: TextStyle(
                     fontSize: 30.0,
                     fontWeight: FontWeight.w700,
