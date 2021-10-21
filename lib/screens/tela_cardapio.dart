@@ -41,7 +41,7 @@ class tela_cardapio extends StatelessWidget {
               )),
         ),
         body: Container(
-          padding: EdgeInsets.all(25),
+          padding: EdgeInsets.only(top: 32, right: 45, left: 45),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
@@ -51,11 +51,10 @@ class tela_cardapio extends StatelessWidget {
           ),
           child: TabBarView(
             children: [
-              Column(
+              Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                runSpacing: 32,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
                       Container(
                         width: 135,
                         height: 168,
@@ -102,6 +101,10 @@ class tela_cardapio extends StatelessWidget {
                                 "Guaraná Lata",
                                 style: TextStyle(color: Colors.black),
                               ),
+                             Text(
+                               "RS 4,00",
+                               style: TextStyle(color: Colors.black),
+                             ),
                             ],
                           ),
                         ),
@@ -153,14 +156,16 @@ class tela_cardapio extends StatelessWidget {
                                 "Coca-Cola Lata",
                                 style: TextStyle(color: Colors.black),
                               ),
+                              Text(
+                                "RS 4,00",
+                                style: TextStyle(color: Colors.black),
+                              ),
                             ],
                           ),
                         ),
                       ),
                     ],
                   ),
-                ],
-              ),
               Text("CARNE"),
               Text("FRANGO"),
               Text("COMBOS"),
