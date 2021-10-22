@@ -6,6 +6,7 @@ String _title = "Pato Burguer";
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   runApp(PatoBurguerApp());
 }
 
@@ -17,7 +18,7 @@ class PatoBurguerApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Color(0xFFFF9B0D),
       ),
-      home: null,
+      home: telaDeInicio(),
     );
   }
 }
