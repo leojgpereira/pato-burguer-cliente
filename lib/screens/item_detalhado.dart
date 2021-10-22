@@ -65,11 +65,14 @@ class ItemDetalhado extends StatelessWidget {
                 snapshot.data!.data() as Map<String, dynamic>;
 
             final Produto produto = Produto(
+              documentId,
               data['imagem'],
               data['nome'],
               data['detalhes'],
               data['ingredientes'],
               data['preco'],
+              data['promocao'],
+              data['promocao'] ? data['precoPromocional'] : data['preco'],
             );
 
             return Stack(
@@ -80,7 +83,7 @@ class ItemDetalhado extends StatelessWidget {
                     width: double.infinity,
                     height: (MediaQuery.of(context).size.height * 0.6),
                     padding: EdgeInsets.only(
-                      top: 105.96,
+                      top: 115.96,
                       left: 25.0,
                       right: 25.0,
                       bottom: 25.0,
@@ -101,7 +104,7 @@ class ItemDetalhado extends StatelessWidget {
                   right: 0,
                   bottom:
                       (MediaQuery.of(context).size.height * 0.5960 - 105.96),
-                  child: Image.asset(data['imagem']),
+                  child: Image.network(data['imagem']),
                 ),
               ],
             );
@@ -205,7 +208,11 @@ class DetalhesItem extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  produto.preco.toStringAsFixed(2).replaceAll('.', ','),
+                  produto.promocao
+                      ? produto.precoPromocional
+                          .toStringAsFixed(2)
+                          .replaceAll('.', ',')
+                      : produto.preco.toStringAsFixed(2).replaceAll('.', ','),
                   style: TextStyle(
                     fontSize: 30.0,
                     fontWeight: FontWeight.w700,
