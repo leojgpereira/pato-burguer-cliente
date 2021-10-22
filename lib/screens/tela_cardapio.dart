@@ -5,8 +5,11 @@ import 'package:patoburguer/models/produto.dart';
 class tela_cardapio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final int tabNumber = ModalRoute.of(context)!.settings.arguments! as int;
+
     return DefaultTabController(
       length: 5,
+      initialIndex: tabNumber,
       child: Scaffold(
         backgroundColor: Colors.orange,
         appBar: AppBar(
@@ -17,6 +20,9 @@ class tela_cardapio extends StatelessWidget {
               isScrollable: true,
               unselectedLabelColor: Colors.white,
               labelColor: Colors.orange,
+              labelStyle: TextStyle(
+                fontWeight: FontWeight.w700,
+              ),
               indicatorColor: Colors.transparent,
               padding: EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
               indicator: ShapeDecoration(
@@ -120,7 +126,8 @@ class ItemCardapio extends StatelessWidget {
             shadowColor: MaterialStateProperty.all(Colors.transparent),
           ),
           onPressed: () {
-            print(produto.documentId);
+            Navigator.of(context)
+                .pushNamed('/item-detalhado', arguments: produto.documentId);
           },
           child: Column(
             children: [

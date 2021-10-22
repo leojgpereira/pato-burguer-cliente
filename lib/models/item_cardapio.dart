@@ -6,10 +6,10 @@ class ItemCardapio {
   final double preco;
 
   ItemCardapio(
-      this.imagemSrc,
-      this.nome,
-      this.detalhes,
-      this.ingredientes,
-      this.preco,
-      );
+    this.imagemSrc,
+    this.nome,
+    this.detalhes,
+    this.ingredientes,
+    this.preco,
+  );
 }

@@ -5,26 +5,24 @@ import 'package:patoburguer/models/produto.dart';
 Color corTexto = const Color(0xFF434343);
 
 class ItemDetalhado extends StatelessWidget {
-  final String documentId;
-
-  ItemDetalhado(this.documentId);
-
   @override
   Widget build(BuildContext context) {
     CollectionReference produtos =
         FirebaseFirestore.instance.collection('produtos');
 
+    final String documentId =
+        ModalRoute.of(context)!.settings.arguments! as String;
+
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
-        title: Center(
-          child: Text(
-            'Cardápio',
-            style: TextStyle(
-              fontSize: 24.0,
-            ),
+        title: Text(
+          'Cardápio',
+          style: TextStyle(
+            fontSize: 24.0,
           ),
         ),
+        centerTitle: true,
         elevation: 0,
         backgroundColor: Theme.of(context).primaryColor,
       ),

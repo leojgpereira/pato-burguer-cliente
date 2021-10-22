@@ -1,10 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:patoburguer/assets/icons.dart';
-import 'package:patoburguer/models/item_cardapio.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'item_detalhado.dart';
 
 final String assetName = 'assets/Images/noun_Hamburger_2077474 (1).svg';
 
@@ -98,11 +94,11 @@ class telaDeInicio extends StatelessWidget {
                               List<Widget> promocoes = [];
                               snapshot.data.docs.forEach((doc) {
                                 promocoes.add(item_em_promocao(
-                                    doc.id,
-                                    doc.get('nome'),
-                                    doc.get('imagem'),
-                                    doc.get('preco'),
-                                    doc.get('precoPromocional'),
+                                  doc.id,
+                                  doc.get('nome'),
+                                  doc.get('imagem'),
+                                  doc.get('preco'),
+                                  doc.get('precoPromocional'),
                                 ));
                                 promocoes.add(SizedBox(height: 70));
                               });
@@ -232,7 +228,11 @@ class telaDeInicio extends StatelessWidget {
                                                     fontWeight:
                                                         FontWeight.w500)),
                                           ]),
-                                      onPressed: () {}),
+                                      onPressed: () {
+                                        Navigator.of(context).pushNamed(
+                                            '/cardapio',
+                                            arguments: 0);
+                                      }),
                                 )),
                             Padding(
                                 padding:
@@ -264,35 +264,28 @@ class telaDeInicio extends StatelessWidget {
                                                 )),
                                           ],
                                         ),
-                                        onPressed: () {}))),
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .pushNamed('/contato');
+                                        }))),
                           ])
                     ]),
               ),
             ),
-
-
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
           onTap: (index) {
-            /*if(index==0){
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ItemDetalhado()));
-            };*/
             switch (index) {
-              /*case 1:
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => //tela de laches);
-                break;*/
-              /*case 2:
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => //tela de bebidas;
+              case 1:
+                Navigator.of(context).pushNamed('/cardapio', arguments: 0);
+                break;
+              case 2:
+                Navigator.of(context).pushNamed('/cardapio', arguments: 4);
                 break;
               case 3:
-                    Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => // tela de combos;
-                    break;
-                }*/
+                Navigator.of(context).pushNamed('/cardapio', arguments: 3);
+                break;
             }
           },
           type: BottomNavigationBarType.fixed,
@@ -341,10 +334,7 @@ class telaDeInicio extends StatelessWidget {
             ),
           ],
           backgroundColor: Theme.of(context).primaryColor,
-        )
-
-
-        );
+        ));
   }
 }
 
@@ -354,11 +344,13 @@ class item_em_promocao extends StatelessWidget {
   final double preco;
   final double preco_promocional;
   final String id;
-  item_em_promocao(this.id, this.nome, this.imagem, this.preco, this.preco_promocional);
+
+  item_em_promocao(
+      this.id, this.nome, this.imagem, this.preco, this.preco_promocional);
 
   @override
   Widget build(BuildContext context) {
-    double porcentagem =  (preco - preco_promocional)/preco * 100;
+    double porcentagem = (preco - preco_promocional) / preco * 100;
 
     return Stack(clipBehavior: Clip.none, children: [
       Align(
@@ -371,67 +363,107 @@ class item_em_promocao extends StatelessWidget {
             child: Container(
               alignment: Alignment.centerLeft,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
-                Padding(
-                  padding:
-                      const EdgeInsets.only(right: 0, bottom: 7, top: 10),
-                  child: Text(
-                    nome,
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      //
-                      fontSize: 12.0,
-                      color: Color(0xFF434343),
-                      fontStyle: FontStyle.normal,
-                    ),
-                  ),
-                ),
-                Padding(
-                    padding: const EdgeInsets.only(right: 0, bottom: 7),
-                    child: Text("${porcentagem.toStringAsFixed(0)}% de Desconto",
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(right: 0, bottom: 7, top: 10),
+                      child: Text(
+                        nome,
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                          fontSize: 12.0,
+                          //
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w700,
                           color: Color(0xFF434343),
                           fontStyle: FontStyle.normal,
-                        ))),
-                Padding(
-                    padding: const EdgeInsets.only(bottom: 5),
-                    child: Row(
-                      children: [
-                        Text(
-                          "R\$ ${preco_promocional.toStringAsFixed(2).replaceAll(".", ",")}  ",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.black,
-                              fontStyle: FontStyle.normal),
                         ),
-                        Text(
-                            "${preco.toStringAsFixed(2).replaceAll(".", ",")}",
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 0, bottom: 7),
+                      child: Row(
+                        children: [
+                          Text(
+                            "${porcentagem.toStringAsFixed(0)}% ",
+                            textAlign: TextAlign.left,
                             style: TextStyle(
-                              decoration: TextDecoration.lineThrough,
-                              decorationColor: Colors.red,
-                            )),
-                      ],
-                    ))
-              ]),
+                              fontSize: 14.0,
+                              color: Colors.black,
+                              fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          Text(
+                            "de Desconto",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.black.withOpacity(0.8),
+                              fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: Row(
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  "R\$ ",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      fontSize: 12.0,
+                                      color: Colors.black,
+                                      fontStyle: FontStyle.normal),
+                                ),
+                                Text(
+                                  "${preco_promocional.toStringAsFixed(2).replaceAll(".", ",")}  ",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      fontSize: 20.0,
+                                      color: Colors.black,
+                                      fontStyle: FontStyle.normal),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text("R\$ ",
+                                    style: TextStyle(
+                                      fontSize: 12.0,
+                                      color: Colors.black.withOpacity(0.8),
+                                      decoration: TextDecoration.lineThrough,
+                                      decorationColor: Colors.red,
+                                    )),
+                                Text(
+                                    "${preco.toStringAsFixed(2).replaceAll('.', ',')}",
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      color: Colors.black.withOpacity(0.8),
+                                      decoration: TextDecoration.lineThrough,
+                                      decorationColor: Colors.red,
+                                    )),
+                              ],
+                            ),
+                          ],
+                        ))
+                  ]),
             ),
             //Positioned(),
             onPressed: () {
-              /*Navigator.push(context,
-                                            MaterialPageRoute(
-                                              builder: (context) => ItemDetalhado(ItemCardapio(),);
-                                            )    */
+              Navigator.of(context).pushNamed('/item-detalhado', arguments: id);
             },
           )),
       Positioned(
           right: 55,
           top: -75,
-          child: Image.asset(
+          child: Image.network(
             imagem,
             width: 150,
             height: 250,

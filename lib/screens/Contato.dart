@@ -16,13 +16,6 @@ class Contato extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_rounded,
-            color: Color(0xFFFFFFFF),
-          ),
-          onPressed: () {},
-        ),
         elevation: 0,
         backgroundColor: Theme.of(context).primaryColor,
       ),
@@ -47,7 +40,8 @@ class Contato extends StatelessWidget {
               future:
                   FirebaseFirestore.instance.collection('informacoes').get(),
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                if (snapshot.hasError || snapshot.data.docs[0] == null) {
+                if (snapshot.hasError ||
+                    (snapshot.hasData && snapshot.data.docs[0] == null)) {
                   return Center(
                     child: Text('Erro ao buscar informações!'),
                   );
@@ -246,7 +240,7 @@ class ContatoDetalhes extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
-                  child: Image.asset('assets/imagens/Whats.png'),
+                  child: Image.asset('assets/images/Whats.png'),
                 ),
                 Text(
                   item.whatsapp,
@@ -282,7 +276,7 @@ class ContatoDetalhes extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
-                  child: Image.asset('assets/imagens/Facebook.png'),
+                  child: Image.asset('assets/images/Facebook.png'),
                 ),
                 Text(
                   item.facebook,
@@ -304,7 +298,7 @@ class ContatoDetalhes extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
-                  child: Image.asset('assets/imagens/Instagram.png'),
+                  child: Image.asset('assets/images/Instagram.png'),
                 ),
                 Text(
                   item.instagram,
