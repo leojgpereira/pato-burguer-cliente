@@ -1,11 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:patoburguer/models/contato_info.dart';
+import 'package:patoburguer/models/informacoes.dart';
 
 class Contato extends StatelessWidget {
-  final ContatoInfo item;
-
-  Contato(this.item);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,12 +15,14 @@ class Contato extends StatelessWidget {
             fontSize: 24.0,
           ),
         ),
-          centerTitle: true,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios_rounded, color: Color(0xFFFFFFFF),),
-            onPressed: () {
-            },
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_rounded,
+            color: Color(0xFFFFFFFF),
           ),
+          onPressed: () {},
+        ),
         elevation: 0,
         backgroundColor: Theme.of(context).primaryColor,
       ),
@@ -44,7 +43,38 @@ class Contato extends StatelessWidget {
                 topLeft: Radius.circular(15.0),
               ),
             ),
-            child: ContatoDetalhes(item),
+            child: FutureBuilder(
+              future:
+                  FirebaseFirestore.instance.collection('informacoes').get(),
+              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                if (snapshot.hasError || snapshot.data.docs[0] == null) {
+                  return Center(
+                    child: Text('Erro ao buscar informações!'),
+                  );
+                }
+
+                if (snapshot.connectionState == ConnectionState.done) {
+                  Informacoes informacoes = Informacoes(
+                    id: snapshot.data.docs[0].id,
+                    endereco: snapshot.data.docs[0].get('endereco'),
+                    horarioSegSex: snapshot.data.docs[0].get('horarioSegSex'),
+                    horarioSab: snapshot.data.docs[0].get('horarioSab'),
+                    horarioDomFer: snapshot.data.docs[0].get('horarioDomFer'),
+                    whatsapp: snapshot.data.docs[0].get('whatsapp'),
+                    facebook: snapshot.data.docs[0].get('facebook'),
+                    instagram: snapshot.data.docs[0].get('instagram'),
+                  );
+
+                  return ContatoDetalhes(informacoes);
+                }
+
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ),
@@ -53,7 +83,7 @@ class Contato extends StatelessWidget {
 }
 
 class ContatoDetalhes extends StatelessWidget {
-  final ContatoInfo item;
+  final Informacoes item;
 
   ContatoDetalhes(this.item);
 
@@ -112,13 +142,26 @@ class ContatoDetalhes extends StatelessWidget {
           padding: const EdgeInsets.only(top: 15, left: 32, right: 32),
           child: Align(
             alignment: Alignment.topLeft,
-            child: Text(
-              item.hora1,
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                color: Color(0xFFFFB54B),
-                fontSize: 13.0,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Segunda à Sexta',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFFFFB54B),
+                    fontSize: 13.0,
+                  ),
+                ),
+                Text(
+                  item.horarioSegSex,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFFFFB54B),
+                    fontSize: 13.0,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -126,27 +169,54 @@ class ContatoDetalhes extends StatelessWidget {
           padding: const EdgeInsets.only(top: 15, left: 32, right: 32),
           child: Align(
             alignment: Alignment.topLeft,
-            child: Text(
-              item.hora2,
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                color: Color(0xFFFFB54B),
-                fontSize: 13.0,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Sábado',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFFFFB54B),
+                    fontSize: 13.0,
+                  ),
+                ),
+                Text(
+                  item.horarioSab,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFFFFB54B),
+                    fontSize: 13.0,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 15, bottom: 15, left: 32, right: 32),
+          padding:
+              const EdgeInsets.only(top: 15, bottom: 15, left: 32, right: 32),
           child: Align(
             alignment: Alignment.topLeft,
-            child: Text(
-              item.hora3,
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                color: Color(0xFFFFB54B),
-                fontSize: 13.0,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Domingo e Feriados',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFFFFB54B),
+                    fontSize: 13.0,
+                  ),
+                ),
+                Text(
+                  item.horarioDomFer,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFFFFB54B),
+                    fontSize: 13.0,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -179,15 +249,15 @@ class ContatoDetalhes extends StatelessWidget {
                   child: Image.asset('assets/imagens/Whats.png'),
                 ),
                 Text(
-                item.numero,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500, 
-                  color: Color(0xFFFFB54B), 
-                  fontSize: 15.0,
+                  item.whatsapp,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFFFFB54B),
+                    fontSize: 15.0,
+                  ),
                 ),
-              ),
               ],
-            ), 
+            ),
           ),
         ),
         Padding(
@@ -215,7 +285,7 @@ class ContatoDetalhes extends StatelessWidget {
                   child: Image.asset('assets/imagens/Facebook.png'),
                 ),
                 Text(
-                  item.social1,
+                  item.facebook,
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: Color(0xFFFFB54B),
@@ -237,7 +307,7 @@ class ContatoDetalhes extends StatelessWidget {
                   child: Image.asset('assets/imagens/Instagram.png'),
                 ),
                 Text(
-                  item.social2,
+                  item.instagram,
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: Color(0xFFFFB54B),
