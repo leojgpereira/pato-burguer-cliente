@@ -13,12 +13,11 @@ class PatoBurguerApp extends StatelessWidget {
   const PatoBurguerApp({Key? key}) : super(key:key);
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: _title,
-      theme: ThemeData(primarySwatch: Colors.orange),
-      home: telaDeInicio()
-      );
+    return MaterialApp(
+      theme: ThemeData(
+        primaryColor: Color(0xFFFF9B0D),
+      ),
+      home: null,
+    );
   }
 }
-
-
-
