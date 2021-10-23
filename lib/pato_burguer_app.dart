@@ -9,6 +9,8 @@ class PatoBurguerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Pato Burguer',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Color(0xFFFF9B0D),
       ),
