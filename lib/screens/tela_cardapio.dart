@@ -93,7 +93,7 @@ class ItemCardapio extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Container(
-        width: 135,
+        width: 145,
         height: 168,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -156,16 +156,29 @@ class ItemCardapio extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              Text(
-                (produto.promocao)
-                    ? 'R\$ ${produto.precoPromocional.toStringAsFixed(2).replaceAll('.', ',')}'
-                    : 'R\$ ${produto.preco.toStringAsFixed(2).replaceAll('.', ',')},',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 14,
-                ),
-              )
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'R\$ ',
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 14,
+                    ),
+                  ),
+                  Text(
+                    (produto.promocao)
+                        ? '${produto.precoPromocional.toStringAsFixed(2).replaceAll('.', ',')}'
+                        : '${produto.preco.toStringAsFixed(2).replaceAll('.', ',')}',
+                    style: TextStyle(
+                      color: Color(0xFF434343),
+                      fontWeight: FontWeight.w700,
+                      fontSize: 20.0,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
